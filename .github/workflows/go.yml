@@ -22,7 +22,7 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-    env:
-      USER_ID: ${{ secrets.USER_ID }}
-      API_KEY: ${{ secrets.API_KEY }}
+      env:
+        USER_ID: ${{ secrets.USER_ID }}
+        API_KEY: ${{ secrets.API_KEY }}
       run: USER_ID=$USER_ID API_KEY=$API_KEY go test -v ./...
