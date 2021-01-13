@@ -2,6 +2,12 @@
 
 A simple NodeJS library to interact with the APIs for screenshot generation on screensnaps.io.
 
+## Installation
+
+To install go-screensnaps: 
+
+`go get github.com/Team-GC/go-screensnaps`
+
 ## Documentation
 
 TODO: link godoc when public
