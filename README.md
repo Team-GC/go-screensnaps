@@ -1,5 +1,7 @@
 # go-screensnaps
 
+![Build](https://github.com/Team-GC/go-screensnaps/workflows/Go/badge.svg)
+
 A simple NodeJS library to interact with the APIs for screenshot generation on screensnaps.io.
 
 ## Installation
