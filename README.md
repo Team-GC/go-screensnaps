@@ -12,6 +12,16 @@ To install go-screensnaps:
 
 TODO: link godoc when public
 
+## Tests
+
+Add to environmental variables:
+
+`USER_ID=abc-123` and `API_KEY=def-456`
+
+Then run:
+
+`go test`
+
 ## Example Usage
 
 ```
