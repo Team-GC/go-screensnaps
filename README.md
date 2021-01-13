@@ -14,7 +14,7 @@ TODO: link godoc when public
 
 ## Tests
 
-Add to environmental variables:
+Add your keys as environmental variables:
 
 `USER_ID=abc-123` and `API_KEY=def-456`
 
