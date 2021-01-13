@@ -17,12 +17,12 @@ var defaultClient = &http.Client{
 	Timeout: time.Second * 30,
 }
 
-// NewScreensnapsClient func
+// NewScreensnapsClient creates a new client with a default HTTP Client using the provided userID and apiKey
 func NewScreensnapsClient(userID, apiKey string) *Screensnaps {
 	return NewScreensnapsClientCustomHTTP(userID, apiKey, nil)
 }
 
-// NewScreensnapsClientCustomHTTP func
+// NewScreensnapsClientCustomHTTP creates a new custom client using the provided userID, apiKey, and HTTP Client
 func NewScreensnapsClientCustomHTTP(userID, apiKey string, HTTPClient *http.Client) *Screensnaps {
 	if HTTPClient == nil {
 		HTTPClient = defaultClient
@@ -41,7 +41,7 @@ func NewScreensnapsClientCustomHTTP(userID, apiKey string, HTTPClient *http.Clie
 	}
 }
 
-// CreateScreenshot func
+// CreateScreenshot creates a new screenshot with the provided targetURL or targetHTML and returns a SnapResponse if successful
 func (screensnaps *Screensnaps) CreateScreenshot(targetURL string) (snapResponse *SnapResponse, exception *Exception, err error) {
 	apiURL := screensnaps.config.baseURL + "/" + screensnaps.config.apiVersion + "/screenshot"
 
@@ -71,7 +71,7 @@ func (screensnaps *Screensnaps) CreateScreenshot(targetURL string) (snapResponse
 	return snapResponse, exception, err
 }
 
-// GetScreenshots func
+// GetScreenshots returns a SnapsResponse if successful, containing a list of screenshots previously generated
 func (screensnaps *Screensnaps) GetScreenshots() (snapsResponse *SnapsResponse, exception *Exception, err error) {
 	apiURL := screensnaps.config.baseURL + "/" + screensnaps.config.apiVersion + "/screenshots"
 
@@ -99,7 +99,7 @@ func (screensnaps *Screensnaps) GetScreenshots() (snapsResponse *SnapsResponse, 
 	return snapsResponse, exception, err
 }
 
-// GetStatus func
+// GetStatus returns a SnapStatusResponse if successful, containing an API status
 func (screensnaps *Screensnaps) GetStatus() (statusResponse *SnapStatusResponse, exception *Exception, err error) {
 	apiURL := screensnaps.config.baseURL + "/" + screensnaps.config.apiVersion + "/status"
 
