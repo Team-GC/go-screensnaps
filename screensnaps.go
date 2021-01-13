@@ -71,7 +71,7 @@ func (screensnaps *Screensnaps) CreateScreenshot(targetURL string) (snapResponse
 	return snapResponse, exception, err
 }
 
-// GetScreenshots returns a SnapsResponse if successful, containing a list of screenshots previously generated
+// GetScreenshots returns a SnapsResponse if successful, containing a list of the last 15 screenshots previously generated
 func (screensnaps *Screensnaps) GetScreenshots() (snapsResponse *SnapsResponse, exception *Exception, err error) {
 	apiURL := screensnaps.config.baseURL + "/" + screensnaps.config.apiVersion + "/screenshots"
 
