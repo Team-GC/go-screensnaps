@@ -23,7 +23,21 @@ func main() {
 
 	// create a new screenshot from a url
 	targetURL := "https://golang.org"
-	screenshot, exception, err := screensnaps.CreateScreenshot(targetURL)
+	screenshot, exception, err := screensnaps.CreateScreenshotFromURL(targetURL)
+
+	if err != nil {
+		println("error: " + err.Error())
+	}
+
+	if exception != nil {
+		println("exception: " + exception.Status)
+	}
+
+	println(screenshot.ImageURL)
+
+	// create a new screenshot from HTML
+	targetHTML := "<html><body><p>I love Screensnaps!</p></body></html>"
+	screenshot, exception, err = screensnaps.CreateScreenshotFromHTML(targetHTML)
 
 	if err != nil {
 		println("error: " + err.Error())

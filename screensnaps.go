@@ -41,34 +41,18 @@ func NewScreensnapsClientCustomHTTP(userID, apiKey string, HTTPClient *http.Clie
 	}
 }
 
-// CreateScreenshot creates a new screenshot with the provided targetURL or targetHTML and returns a SnapResponse if successful
-func (screensnaps *Screensnaps) CreateScreenshot(targetURL string) (snapResponse *SnapResponse, exception *Exception, err error) {
-	apiURL := screensnaps.config.baseURL + "/" + screensnaps.config.apiVersion + "/screenshot"
+// CreateScreenshotFromURL creates a new screenshot with the provided url and returns a SnapResponse if successful
+func (screensnaps *Screensnaps) CreateScreenshotFromURL(url string) (snapResponse *SnapResponse, exception *Exception, err error) {
+	values := map[string]string{"url": url}
 
-	values := map[string]string{"url": targetURL}
+	return screensnaps.createScreenshot(values)
+}
 
-	res, err := screensnaps.post(values, apiURL)
-	if err != nil {
-		return snapResponse, exception, err
-	}
-	defer res.Body.Close()
+// CreateScreenshotFromHTML creates a new screenshot with the provided html and returns a SnapResponse if successful
+func (screensnaps *Screensnaps) CreateScreenshotFromHTML(html string) (snapResponse *SnapResponse, exception *Exception, err error) {
+	values := map[string]string{"html": html}
 
-	responseBody, err := ioutil.ReadAll(res.Body)
-
-	if err != nil {
-		return snapResponse, exception, err
-	}
-
-	if res.StatusCode != http.StatusOK {
-		exception = new(Exception)
-		err = json.Unmarshal(responseBody, exception)
-
-		return snapResponse, exception, err
-	}
-
-	snapResponse = new(SnapResponse)
-	err = json.Unmarshal(responseBody, snapResponse)
-	return snapResponse, exception, err
+	return screensnaps.createScreenshot(values)
 }
 
 // GetScreenshots returns a SnapsResponse if successful, containing a list of the last 15 screenshots previously generated
@@ -125,6 +109,33 @@ func (screensnaps *Screensnaps) GetStatus() (statusResponse *SnapStatusResponse,
 	statusResponse = new(SnapStatusResponse)
 	err = json.Unmarshal(responseBody, statusResponse)
 	return statusResponse, exception, err
+}
+
+func (screensnaps *Screensnaps) createScreenshot(values map[string]string) (snapResponse *SnapResponse, exception *Exception, err error) {
+	apiURL := screensnaps.config.baseURL + "/" + screensnaps.config.apiVersion + "/screenshot"
+
+	res, err := screensnaps.post(values, apiURL)
+	if err != nil {
+		return snapResponse, exception, err
+	}
+	defer res.Body.Close()
+
+	responseBody, err := ioutil.ReadAll(res.Body)
+
+	if err != nil {
+		return snapResponse, exception, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		exception = new(Exception)
+		err = json.Unmarshal(responseBody, exception)
+
+		return snapResponse, exception, err
+	}
+
+	snapResponse = new(SnapResponse)
+	err = json.Unmarshal(responseBody, snapResponse)
+	return snapResponse, exception, err
 }
 
 func (screensnaps *Screensnaps) get(url string) (*http.Response, error) {
