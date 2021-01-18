@@ -12,7 +12,7 @@ To install go-screensnaps:
 
 ## Documentation
 
-TODO: link godoc when public
+https://pkg.go.dev/github.com/Team-GC/go-screensnaps#readme-documentation
 
 ## Tests
 
